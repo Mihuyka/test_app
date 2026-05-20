@@ -27,6 +27,8 @@ my_window::my_window() :
     
     m_check_group("Показать Группу и Номер")
 {
+    Gtk::Settings::get_for_display(get_display())->set_property("gtk-application-prefer-dark-theme", true);
+    
     set_title("test_app");
     set_default_size(450, 400);
     
