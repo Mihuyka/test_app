@@ -37,16 +37,18 @@ class my_window : public Gtk::Window {
         ///
         Gtk::Frame m_frame_color;
         
-        Gtk::Box m_box_color_vertical;
+        Gtk::Box m_box_color;
         
-        Gtk::CheckButton m_radio_plum;
+        Gtk::CheckButton m_radio_default;
         
-        Gtk::CheckButton m_radio_bisque;
+        Gtk::CheckButton m_radio_amber;
+        
+        Gtk::CheckButton m_radio_dark_blue;
         
         ///
         Gtk::Frame m_frame_title;
         
-        Gtk::Box m_box_title_vertical;
+        Gtk::Box m_box_title;
         
         Gtk::CheckButton m_check_fio;
         
