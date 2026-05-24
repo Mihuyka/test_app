@@ -11,21 +11,23 @@ my_window::my_window() :
     
     m_label_result("Результат: ещё не расчитан"),
     
-    m_frame_color("Выбор цвета фона (RadioButtons)"),
+    m_frame_color("Цвет фона:"),
     
-    m_box_color_vertical(Gtk::Orientation::VERTICAL, 5),
+    m_box_color(Gtk::Orientation::VERTICAL, 5),
     
-    m_radio_plum("Цвет Plum (Слиловый)"),
+    m_radio_default("Default"),
     
-    m_radio_bisque("Цвет Bisque (Бежевый)"),
+    m_radio_amber("Amber"),
     
-    m_frame_title("Управление загаловком (CheckBoxes)"),
+    m_radio_dark_blue("Dark blue"),
     
-    m_box_title_vertical(Gtk::Orientation::VERTICAL, 5),
+    m_frame_title("Загаловок:"),
     
-    m_check_fio("Показать ФИО"),
+    m_box_title(Gtk::Orientation::VERTICAL, 5),
     
-    m_check_group("Показать Группу и Номер")
+    m_check_fio("ФИО"),
+    
+    m_check_group("Группа")
 {
     Gtk::Settings::get_for_display(get_display())->set_property("gtk-application-prefer-dark-theme", true);
     
@@ -45,26 +47,31 @@ my_window::my_window() :
     m_main_box.append(m_math_layout_box);
     m_main_box.append(m_label_result);
     
-    m_radio_bisque.set_group(m_radio_plum);
+    m_radio_amber.set_group(m_radio_dark_blue);
+    m_radio_default.set_group(m_radio_dark_blue);
     
-    m_box_color_vertical.append(m_radio_plum);
-    m_box_color_vertical.append(m_radio_bisque);
-    m_frame_color.set_child(m_box_color_vertical);
+    m_box_color.append(m_radio_default);
+    m_box_color.append(m_radio_amber);
+    m_box_color.append(m_radio_dark_blue);
+    m_frame_color.set_child(m_box_color);
     m_main_box.append(m_frame_color);
     
-    m_box_title_vertical.append(m_check_fio);
-    m_box_title_vertical.append(m_check_group);
-    m_frame_title.set_child(m_box_title_vertical);
+    m_box_title.append(m_check_fio);
+    m_box_title.append(m_check_group);
+    m_frame_title.set_child(m_box_title);
     m_main_box.append(m_frame_title);
     
     m_button_calculate.signal_clicked().connect(
         sigc::mem_fun(*this, &my_window::on_calculate_button_clicked)
     );
     
-    m_radio_plum.signal_toggled().connect(
+    m_radio_default.signal_toggled().connect(
         sigc::mem_fun(*this, &my_window::on_color_radio_toggled)
     );
-    m_radio_bisque.signal_toggled().connect(
+    m_radio_amber.signal_toggled().connect(
+        sigc::mem_fun(*this, &my_window::on_color_radio_toggled)
+    );
+    m_radio_dark_blue.signal_toggled().connect(
         sigc::mem_fun(*this, &my_window::on_color_radio_toggled)
     );
     
@@ -103,12 +110,15 @@ void my_window::on_calculate_button_clicked() {
 }
 
 void my_window::on_color_radio_toggled() {
-    if (m_radio_plum.get_active()) {
-        remove_css_class("bg-bisque");
-        add_css_class("bg-plum");
-    } else if (m_radio_bisque.get_active()) {
-        remove_css_class("bg-plum");
-        add_css_class("bg-bisque");
+    if (m_radio_amber.get_active()) {
+        remove_css_class("bg-dark-blue");
+        add_css_class("bg-amber");
+    } else if (m_radio_dark_blue.get_active()) {
+        remove_css_class("bg-amber");
+        add_css_class("bg-dark-blue");
+    } else if (m_radio_default.get_active()) {
+        remove_css_class("bg-amber");
+        remove_css_class("bg-dark-blue");
     }
 }
 
@@ -116,13 +126,13 @@ void my_window::on_title_checkbox_toggled() {
     Glib::ustring base_title = "test_app";
     
     if (m_check_fio.get_active() && m_check_group.get_active()) {
-        base_title = "Евтерев Т-493";
+        base_title = "Евтерев Михаил Алексеевич Т-493";
     }
     else if (m_check_fio.get_active()) {
         base_title = "Евтерев Михаил Алексеевич";
     }
     else if (m_check_group.get_active()) {
-        base_title = "Группа: Т-493";
+        base_title = "Т-493";
     }
 
     set_title(base_title);
