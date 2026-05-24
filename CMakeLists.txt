@@ -16,6 +16,6 @@ add_executable(test_app
 set_property(TARGET test_app PROPERTY CXX_STANDARD 20)
 set_property(TARGET test_app PROPERTY CXX_STANDARD_REQUIRED ON)
 
-target_include_directories(test_app PRIVATE include)
+target_include_directories(test_app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 target_link_libraries(test_app PRIVATE PkgConfig::GTKMM)
