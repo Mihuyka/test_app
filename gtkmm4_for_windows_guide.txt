@@ -5,7 +5,7 @@
     pacman -S --needed base-devel
     pacman -S --needed mingw-w64-ucrt-x86_64-toolchain
     pacman -S --needed mingw-w64-ucrt-x86_64-cmake
-    pacman -S --needed mingw-w64-x86_64-gtkmm-4.0
+    pacman -S --needed mingw-w64-ucrt-x86_64-gtkmm-4.0
 
 3) Add the path of your ucrt64 bin folder to the Windows PATH environment variable by using the following steps:
     3.1) In the Windows search bar, type Settings to open your Windows Settings
