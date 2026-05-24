@@ -6,8 +6,8 @@ int main(int argc, char* argv[]) {
     std::shared_ptr<Gtk::CssProvider> css_provider = Gtk::CssProvider::create();
     
     css_provider->load_from_data(
-        "window.bg-plum { background: #DDA0DD; }"
-        "window.bg-bisque { background: #FFE4C4; }"
+        "window.bg-amber { background: #893101; }"
+        "window.bg-dark-blue { background: #00072D; }"
     );
     
     Gtk::StyleContext::add_provider_for_display(
